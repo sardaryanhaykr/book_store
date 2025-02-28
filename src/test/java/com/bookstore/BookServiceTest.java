@@ -44,17 +44,19 @@ public class BookServiceTest {
     private BookEntity book;
     private BookEntity updateBook;
     private BookDto bookDto;
+    private PublisherEntity publisher;
+    private CategoryEntity category;
 
     @BeforeEach
     public void setUp() {
-        PublisherEntity publisher = new PublisherEntity();
+        publisher = new PublisherEntity();
         publisher.setId(1L);
         publisher.setName("Test Publisher");
         publisher.setAddress("Test Address");
         publisher.setPhone("1234567890");
         publisher.setEmail("test123@mail.com");
 
-        CategoryEntity category = new CategoryEntity();
+        category = new CategoryEntity();
         category.setId(1L);
         category.setName("Test Category");
 
@@ -97,8 +99,10 @@ public class BookServiceTest {
         bookDto.setCategoryId(1L);
 
         when(bookRepository.save(any(BookEntity.class))).thenReturn(new BookEntity());
-        when(publisherRepository.findById(1L)).thenReturn(Optional.of(new PublisherEntity()));
-        when(categoryRepository.findById(1L)).thenReturn(Optional.of(new CategoryEntity()));
+        when(publisherRepository.findById(1L)).thenReturn(Optional.of(publisher));
+        when(categoryRepository.findById(1L)).thenReturn(Optional.of(category));
+        when(publisherRepository.existsById(1L)).thenReturn(true);
+        when(categoryRepository.existsById(1L)).thenReturn(true);
         ResponseEntity<?> result = bookService.createBook(bookDto);
 
         assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
