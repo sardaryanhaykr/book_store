@@ -54,6 +54,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ResponseEntity<?> getCategory(Long id) {
         CategoryEntity category = categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Category"));
         CategoryDto dto = categoryMapper.toDto(category);
@@ -61,6 +62,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ResponseEntity<?> getCategories() {
         List<CategoryEntity> categories = categoryRepository.findAll();
         if (CollectionUtils.isEmpty(categories)) {

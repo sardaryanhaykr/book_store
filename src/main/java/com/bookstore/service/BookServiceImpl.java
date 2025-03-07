@@ -72,6 +72,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ResponseEntity<?> findAll(Pageable pageable, BookFilterDto filter) {
         Page<BookEntity> bookEntityPage = bookRepository.getDataWithPagination(pageable, filter);
         List<BookDto> bookDtos = bookEntityPage.map(bookMapper::toDto).getContent();
@@ -80,6 +81,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ResponseEntity<?> getBook(Long id) {
         Optional<BookEntity> optionalBook = bookRepository.findByIdEager(id);
         if (optionalBook.isEmpty()) {

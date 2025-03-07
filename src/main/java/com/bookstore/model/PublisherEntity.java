@@ -36,11 +36,11 @@ public class PublisherEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PublisherEntity that = (PublisherEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(address, that.address) && Objects.equals(phone, that.phone) && Objects.equals(email, that.email) && Objects.equals(books, that.books);
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(address, that.address) && Objects.equals(phone, that.phone) && Objects.equals(email, that.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, address, phone, email, books);
+        return Objects.hash(id, name, address, phone, email);
     }
 }

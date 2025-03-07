@@ -28,11 +28,11 @@ public class CategoryEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CategoryEntity category = (CategoryEntity) o;
-        return Objects.equals(id, category.id) && Objects.equals(name, category.name) && Objects.equals(books, category.books);
+        return Objects.equals(id, category.id) && Objects.equals(name, category.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, books);
+        return Objects.hash(id, name);
     }
 }
