@@ -2,7 +2,7 @@ package com.bookstore.controller;
 
 import com.bookstore.dto.BookDto;
 import com.bookstore.dto.BookFilterDto;
-import com.bookstore.service.BookServiceImpl;
+import com.bookstore.service.BookService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -17,16 +17,16 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
-    private final BookServiceImpl bookServiceImpl;
+    private final BookService bookService;
 
     @PostMapping
     public ResponseEntity<?> createBook(@RequestBody BookDto dto) {
-        return bookServiceImpl.createBook(dto);
+        return bookService.createBook(dto);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateBook(@PathVariable Long id, BookDto dto) {
-        return bookServiceImpl.updateBook(id, dto);
+        return bookService.updateBook(id, dto);
     }
 
     @GetMapping
@@ -39,16 +39,16 @@ public class BookController {
         Sort sort = Boolean.TRUE.equals(isDesc) ? Sort.by(sortBy.orElse("id")).descending() : Sort.by(sortBy.orElse("id")).ascending();
         Pageable paging = PageRequest.of(page.orElse(0), size.orElse(20), sort);
 
-        return bookServiceImpl.findAll(paging, filter);
+        return bookService.findAll(paging, filter);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getBook(@PathVariable Long id) {
-        return bookServiceImpl.getBook(id);
+        return bookService.getBook(id);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteBook(@PathVariable Long id) {
-        return bookServiceImpl.deleteBook(id);
+        return bookService.deleteBook(id);
     }
 }

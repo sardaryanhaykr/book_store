@@ -48,6 +48,7 @@ public class PublisherServiceImpl implements PublisherService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ResponseEntity<?> getPublishers() {
         List<PublisherEntity> publishers = publisherRepository.findAll();
         if (CollectionUtils.isEmpty(publishers)) {
@@ -58,6 +59,7 @@ public class PublisherServiceImpl implements PublisherService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ResponseEntity<?> getPublisher(Long id) {
         PublisherEntity publisher = publisherRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Publisher"));
         return ResponseEntity.ok(publisher);
